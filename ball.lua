@@ -24,11 +24,15 @@ function Ball:update(dt)
 
   -- bounce off top
   if self.y < 0 then
+    sounds.ball_hit:stop()
+    sounds.ball_hit:play()
     self.speed.y = math.abs(self.speed.y)
   end
 
   -- bounce off bottom
   if (self.y + self.height) > SCREEN.height then
+    sounds.ball_hit:stop()
+    sounds.ball_hit:play()
     self.speed.y = -math.abs(self.speed.y)
   end
 
@@ -37,6 +41,7 @@ function Ball:update(dt)
     (self.y + self.height) >= WORLD.objects.paddle1.y and
     self.y < (WORLD.objects.paddle1.y + WORLD.objects.paddle1.height)
   then
+    sounds.ball_hit:stop()
     sounds.ball_hit:play()
     self.speed.x = math.abs(self.speed.x)
   end
@@ -46,6 +51,7 @@ function Ball:update(dt)
     (self.y + self.height) >= WORLD.objects.paddle2.y and
     self.y < (WORLD.objects.paddle2.y + WORLD.objects.paddle2.height)
   then
+    sounds.ball_hit:stop()
     sounds.ball_hit:play()
     self.speed.x = -math.abs(self.speed.x)
   end
