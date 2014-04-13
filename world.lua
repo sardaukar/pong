@@ -4,8 +4,8 @@ local Paddle    = require 'paddle'
 local AiPaddle  = require 'ai_paddle'
 local Ball      = require 'ball'
 
-local PlayState   = require 'play'
-local PauseState  = require 'pause'
+local PlayState   = require 'states.play'
+local PauseState  = require 'states.pause'
 
 local World = Class {}
 
