@@ -37,6 +37,7 @@ function Ball:update(dt)
     (self.y + self.height) >= WORLD.objects.paddle1.y and
     self.y < (WORLD.objects.paddle1.y + WORLD.objects.paddle1.height)
   then
+    sounds.ball_hit:play()
     self.speed.x = math.abs(self.speed.x)
   end
 
@@ -45,15 +46,18 @@ function Ball:update(dt)
     (self.y + self.height) >= WORLD.objects.paddle2.y and
     self.y < (WORLD.objects.paddle2.y + WORLD.objects.paddle2.height)
   then
+    sounds.ball_hit:play()
     self.speed.x = -math.abs(self.speed.x)
   end
 
   -- reset if off-screen
   if self.x + self.width < 0 then
     WORLD.score.right = WORLD.score.right + 1
+    sounds.ai_score:play()
     self:reset_position()
   elseif self.x > SCREEN.width then
     WORLD.score.left = WORLD.score.left + 1
+    sounds.p1_score:play()
     self:reset_position()
   end
 end

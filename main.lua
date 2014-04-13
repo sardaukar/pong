@@ -10,6 +10,12 @@ function love.load()
 
   WORLD = World()
 
+  sounds = {
+    ball_hit = love.audio.newSource('sounds/ball_hits_paddle.wav','static'),
+    ai_score = love.audio.newSource('sounds/ai_scores.wav','static'),
+    p1_score = love.audio.newSource('sounds/player_scores.wav','static')
+  }
+
   love.window.setTitle('PONG!')
   love.window.setMode(SCREEN.width, SCREEN.height)
 
