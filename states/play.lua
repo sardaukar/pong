@@ -6,9 +6,9 @@ function PlayState:init()
   self.background_color = {39, 77, 126}
 end
 
-function PlayState:update(dt, world)
-  for name, object in pairs(world.objects) do
-    object:update(dt, world)
+function PlayState:update(dt)
+  for name, object in pairs(WORLD.objects) do
+    object:update(dt)
   end
 end
 
@@ -29,7 +29,7 @@ function PlayState:keypressed(key)
   end
 
   if key == 'p' then
-    WORLD.curr_state = 'pause'
+    curr_state = 'pause'
   end
 end
 

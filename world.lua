@@ -4,9 +4,6 @@ local Paddle    = require 'paddle'
 local AiPaddle  = require 'ai_paddle'
 local Ball      = require 'ball'
 
-local PlayState   = require 'states.play'
-local PauseState  = require 'states.pause'
-
 local World = Class {}
 
 function World:init(state)
@@ -16,31 +13,11 @@ function World:init(state)
     ball    = Ball(SCREEN.width / 2, SCREEN.height / 2)
   }
 
-  self.states = {
-    play  = PlayState(),
-    pause = PauseState()
-  }
-
   self.score = {
     left  = 0,
     right = 0
   }
 
-  self.curr_state = 'play'
-
 end
-
-function World:draw()
-  self.states[self.curr_state]:draw()
-end
-
-function World:update(dt)
-  self.states[self.curr_state]:update(dt, self)
-end
-
-function World:keypressed(key)
-  self.states[self.curr_state]:keypressed(key)
-end
-
 
 return World

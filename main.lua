@@ -1,5 +1,9 @@
 local World = require 'world'
+
 inspect = require 'inspect'
+
+local PlayState   = require 'states.play'
+local PauseState  = require 'states.pause'
 
 SCREEN = {
   width = 500,
@@ -9,6 +13,11 @@ SCREEN = {
 function love.load()
 
   WORLD = World()
+
+  states = {
+    play  = PlayState(),
+    pause = PauseState()
+  }
 
   sounds = {
     ball_hit = love.audio.newSource('sounds/ball_hits_paddle.wav','static'),
@@ -21,17 +30,19 @@ function love.load()
 
   font = love.graphics.newFont(48)
   love.graphics.setFont(font)
+
+  curr_state = 'play'
 end
 
 function love.update(dt)
-  WORLD:update(dt)
+  states[curr_state]:update(dt)
 end
 
 function love.draw()
-  WORLD:draw()
+  states[curr_state]:draw()
 end
 
 function love.keypressed(key)
-  WORLD:keypressed(key)
+  states[curr_state]:keypressed(key)
 end
 

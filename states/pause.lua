@@ -22,7 +22,7 @@ end
 
 function PauseState:keypressed(key)
   if key == 'p' then
-    WORLD.curr_state = 'play'
+    curr_state = 'play'
   end
 end
 
