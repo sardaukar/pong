@@ -7,6 +7,8 @@ local AiPaddle = Class {
 
 function AiPaddle:init(...)
   Paddle.init(self, ...)
+
+  self.type = 'ai'
 end
 
 function AiPaddle:update(dt)
@@ -22,6 +24,8 @@ function AiPaddle:update(dt)
   elseif (self.y + self.height) > SCREEN.height then
     self.y = SCREEN.height - self.height
   end
+
+  self.shape:moveTo(self.x+self.width/2,self.y+self.height/2)
 end
 
 function AiPaddle:draw()

@@ -1,8 +1,12 @@
 local Class = require 'hump.class'
 
+local shapes = require 'collider.shapes'
+
 local Ball = Class {}
 
-function Ball:init(x, y)
+function Ball:init(world, x, y)
+
+  self.type = 'ball'
 
   self.width = 20
   self.height = 20
@@ -16,6 +20,18 @@ function Ball:init(x, y)
 
   self.x = SCREEN.width / 2 - self.width / 2
   self.y = SCREEN.height / 2 - self.height / 2
+
+  self.shape = shapes.newPolygonShape(
+    self.x, self.y,
+    self.x + self.width, self.y,
+    self.x + self.width, self.y + self.height,
+    self.x, self.y + self.height
+    )
+
+  self.shape.object = self
+
+  world.collider:addShape(self.shape)
+
 end
 
 function Ball:update(dt)
@@ -34,24 +50,6 @@ function Ball:update(dt)
     self.speed.y = -math.abs(self.speed.y)
   end
 
-  -- bounce off paddle1
-  if self.x <= WORLD.objects.paddle1.width and
-    (self.y + self.height) >= WORLD.objects.paddle1.y and
-    self.y < (WORLD.objects.paddle1.y + WORLD.objects.paddle1.height)
-  then
-    self:sound()
-    self.speed.x = math.abs(self.speed.x)
-  end
-
-  -- bounce off paddle2
-  if (self.x + self.width) >= (SCREEN.width - WORLD.objects.paddle2.width) and
-    (self.y + self.height) >= WORLD.objects.paddle2.y and
-    self.y < (WORLD.objects.paddle2.y + WORLD.objects.paddle2.height)
-  then
-    self:sound()
-    self.speed.x = -math.abs(self.speed.x)
-  end
-
   -- reset if off-screen
   if self.x + self.width < 0 then
     WORLD.score.right = WORLD.score.right + 1
@@ -62,10 +60,17 @@ function Ball:update(dt)
     sounds.p1_score:play()
     self:reset_position()
   end
+
+  self.shape:moveTo(self.x+self.width/2,self.y+self.height/2)
 end
 
 function Ball:reset_position()
-  --print(inspect(self))
+
+  self.speed = {
+    x = 200,
+    y = -200
+  }
+
   self.x = SCREEN.width / 2 - self.width / 2
   self.y = SCREEN.height / 2 - self.height / 2
 end

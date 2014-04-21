@@ -7,20 +7,13 @@ function PlayState:init()
 end
 
 function PlayState:update(dt)
-  for name, object in pairs(WORLD.objects) do
-    object:update(dt)
-  end
+  WORLD:update(dt)
 end
 
 function PlayState:draw()
   love.graphics.setBackgroundColor(self.background_color)
 
-  for name, object in pairs(WORLD.objects) do
-    object:draw()
-  end
-
-  love.graphics.print( WORLD.score.left .. ':' .. WORLD.score.right, 210, 10 )
-
+  WORLD:draw()
 end
 
 function PlayState:keypressed(key)
